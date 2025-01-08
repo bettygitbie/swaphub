@@ -1,0 +1,29 @@
+.outlined-button-login, .outlined-button-signup {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 10px;
+    background-color: transparent;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    
+  }
+  .outlined-button-login {
+    color:white;
+    background-color: black;
+    margin-right: 1rem;
+  }
+
+  .outlined-button-login:hover {
+    background-color: #2e2f2f;
+    border-color: #232424;
+  }
+  
+  .outlined-button-signup {
+    border: 1px solid rgb(216, 212, 212);
+  }
+  
+  .outlined-button-signup:hover {
+    background-color: #A8D8A3;
+    border-color: var(--primary);
+  }
