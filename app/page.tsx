@@ -14,8 +14,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Navbar */}
-      <Navbar />
       <main className="min-h-screen bg-gray-50">
         <section className="bg-custom-light-green text-white py-16">
           <div className="container mx-auto px-4">

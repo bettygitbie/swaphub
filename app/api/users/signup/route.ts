@@ -8,10 +8,8 @@ connectToDatabase();
 export async function POST(request: NextRequest){
     try {
         const {username, email, password} = await request.json();
-        console.log(username)
         //check if user exists
         const user = await User.findOne({email});
-        console.log(user)
         if(user){
             return NextResponse.json({message: "User already exists"}, {status: 400});
         }

@@ -14,7 +14,8 @@ export default function Signup() {
   });
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  const onSubmit = async () => {
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
