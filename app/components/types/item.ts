@@ -1,13 +1,13 @@
 import { type Category } from "./categories";
 
-export type Item = {
-  id: number;
+export interface Item {
+  _id: string;
   title: string;
   description: string;
   category: Category;
   price: number;
   image: string;
-  timePosted: Date;
   location: string;
-  seller: string;
+  owner: string;
+  createdAt: Date;
 };

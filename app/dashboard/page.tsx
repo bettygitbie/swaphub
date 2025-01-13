@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
 import User from "@/models/UserModel";
+import {User as UserType} from '@/app/components/types/user';
 import Item from "@/models/ItemModel";
+import {Item as ItemType} from '@/app/components/types/item'
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/navbar";
 import axios from "axios";
 
 export default function Dashboard() {
-  const [user, setUser] = useState<typeof User | null>(null);
-  const [items, setItems] = useState([]);
+  const [user, setUser] = useState<UserType | null>(null);
+  const [items, setItems] = useState<ItemType[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex text-custom-green">
       <div className="w-64 bg-custom-light-green text-custom-green p-6">
         <h1 className="text-2xl mb-4">Dashboard</h1>
         <ul className="space-y-4">
@@ -59,10 +61,12 @@ export default function Dashboard() {
                   <img
                     src={`/api/images/${item.image}`}
                     alt="image"
-                    className="w-full h-48 object cover"
+                    className="w-full h-48 object-cover"
                   />
                   <div className="p-4">
-                    <h3>{item.title}</h3>
+                    <h3 className="text-xl font-semibold">{item.title}</h3>
+                    <p className="text-gray-700">{item.description.substring(0,100)}...</p>
+                    <p className="text-lg">{item.price}</p>
                   </div>
                 </div>
               ))

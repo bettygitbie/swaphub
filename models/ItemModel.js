@@ -35,7 +35,7 @@ const itemSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-});
+},{timestamps: true});
 
 const Item = mongoose.models.Item || mongoose.model('Item', itemSchema);
 

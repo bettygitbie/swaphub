@@ -18,7 +18,12 @@ const router = useRouter();
       try {
         const response = await axios.get("/api/users/user");
         console.log(response.data);
-        setUser(response.data.user);
+        if(response.data){
+
+          setUser(response.data.user);
+        } else {
+          setUser(null)
+        }
       } catch (error: any) {
         console.error("Failed to fetch user data", error);
       }
