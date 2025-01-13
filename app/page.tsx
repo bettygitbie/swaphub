@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/layout/navbar";
 import SearchBar from "./components/search/searchBar";
 import Categories from "./components/items/categories";
+import { useRouter } from "next/router";
 import Item from "@/models/ItemModel";
 import axios from "axios";
 
@@ -21,6 +22,10 @@ export default function Home() {
     e.preventDefault();
     console.log("Searching for", searchQuery);
   };
+  const handleCategory = (category) =>{
+    const params = new URLSearchParams();
+    if(category) params.set("category", category)
+  }
 
   return (
     <>
@@ -42,7 +47,7 @@ export default function Home() {
           <h2 className="text-2xl text-custom-green font-semibold mb-6">
             Browse Categories
           </h2>
-          <Categories />
+          <Categories  handleCategory={handleCategory}/>
         </section>
         <section className="py-12 container mx-auto px-4">
           <h2 className="text-2xl text-custom-green font-semibold mb-6">

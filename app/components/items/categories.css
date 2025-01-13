@@ -17,3 +17,6 @@
 .categoriesBtn:hover{
     background-color: var(--secondary);
 }
+.categoriesBtn button {
+    justify-content: center;
+}

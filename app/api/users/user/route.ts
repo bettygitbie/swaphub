@@ -8,7 +8,6 @@ connectToDatabase();
 export async function GET(request: NextRequest) {
   try {
     const userId = await getTokenData(request);
-    console.log(userId);
     //fetch user data without the password
     if (userId) {
       const user = await User.findOne({ _id: typeof userId === 'string' ? userId : userId.id }).select("-password");

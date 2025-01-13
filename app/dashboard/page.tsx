@@ -28,15 +28,24 @@ export default function Dashboard() {
     fetchUser();
   }, []);
 
+  const handleLogout = async () =>{
+    try {
+        await axios.get("/api/users/logout");
+        router.push("/");
+    } catch (error: any) {
+      console.error("Failed to logout", error);  
+    }
+  }
+
   return (
     <div className="min-h-screen flex text-custom-green">
       <div className="w-64 bg-custom-light-green text-custom-green p-6">
         <h1 className="text-2xl mb-4">Dashboard</h1>
         <ul className="space-y-4">
           <li>Profile</li>
-          <li>Create Listing</li>
+          <li><a href="/createlisting">Create Listing</a></li>
           <li>
-            <button>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
       </div>

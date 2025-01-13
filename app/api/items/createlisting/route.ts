@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
   const description = formData.get("description") as string;
   const price = formData.get("price") as string;
   const location = formData.get("location") as string;
-  const category = formData.get("category") as string;
+  const category = (formData.get("category") as string).toLowerCase();
   const image: File | null = formData.get("image") as File;
 
   const token = await getTokenData(request);

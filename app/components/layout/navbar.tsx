@@ -9,36 +9,34 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddIcon from "@mui/icons-material/Add";
 import "./navbar.css";
 
-
 export default function Navbar() {
-const router = useRouter();
+  const router = useRouter();
   const [user, setUser] = useState<typeof User | null>(null);
-  useEffect(() => { 
+  useEffect(() => {
     async function fetchUser() {
       try {
         const response = await axios.get("/api/users/user");
         console.log(response.data);
-        if(response.data){
-
+        if (response.data) {
           setUser(response.data.user);
         } else {
-          setUser(null)
+          setUser(null);
         }
       } catch (error: any) {
-        console.error("Failed to fetch user data", error);
+        console.log("Failed to fetch user data", error);
       }
     }
     fetchUser();
-  }, [])
+  }, []);
 
-   const handleLogout = async () => {
-      try {
-          await axios.get("/api/users/logout");
-          router.push("/");
-      } catch (error: any) {
-        console.error("Failed to logout", error);  
-      }
+  const handleLogout = async () => {
+    try {
+      await axios.get("/api/users/logout");
+      router.push("/");
+    } catch (error: any) {
+      console.error("Failed to logout", error);
     }
+  };
 
   return (
     <nav className="border-b bg-background">
@@ -47,20 +45,25 @@ const router = useRouter();
           SwapHub
         </Link>
         <div className="flex items-center gap-4">
-        {user && <Link
-          href="/createlisting"
-          className="outlined-button-signup"
-        >
-          <AddIcon /> Create Listing
-        </Link>}
-         { !user && <Link href="/signup" className="outlined-button-signup">
-            <AddIcon /> Register
-          </Link>}
-          {user ? (<button onClick={handleLogout} className="outlined-button-login">
-            <AccountCircleIcon /> Logout
-          </button>) :(<Link href="/login" className="outlined-button-login">
-            <AccountCircleIcon /> Login
-          </Link>)}
+          {user && (
+            <Link href="/createlisting" className="outlined-button-signup">
+              <AddIcon /> Create Listing
+            </Link>
+          )}
+          {!user && (
+            <Link href="/signup" className="outlined-button-signup">
+              <AddIcon /> Register
+            </Link>
+          )}
+          {user ? (
+            <button onClick={handleLogout} className="outlined-button-login">
+              <AccountCircleIcon /> Logout
+            </button>
+          ) : (
+            <Link href="/login" className="outlined-button-login">
+              <AccountCircleIcon /> Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

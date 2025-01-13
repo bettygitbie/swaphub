@@ -8,7 +8,7 @@ interface SearchBarProps {
     onQueryChange: (query: string) => void;
     onSearch: () => void;
     }
-
+ 
 export default function SearchBar({query, onQueryChange, onSearch}:SearchBarProps) {
   return (
     <div className="max-w-2xl mx-auto flex gap-2">
