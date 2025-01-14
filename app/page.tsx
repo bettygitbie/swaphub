@@ -22,10 +22,7 @@ export default function Home() {
     e.preventDefault();
     console.log("Searching for", searchQuery);
   };
-  const handleCategory = (category) =>{
-    const params = new URLSearchParams();
-    if(category) params.set("category", category)
-  }
+
 
   return (
     <>
@@ -47,7 +44,7 @@ export default function Home() {
           <h2 className="text-2xl text-custom-green font-semibold mb-6">
             Browse Categories
           </h2>
-          <Categories  handleCategory={handleCategory}/>
+          <Categories />
         </section>
         <section className="py-12 container mx-auto px-4">
           <h2 className="text-2xl text-custom-green font-semibold mb-6">
