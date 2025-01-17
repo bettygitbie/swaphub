@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import styles from "./page.module.css";
+import Navbar from "../components/layout/navbar";
 
 export default function Login() {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function Login() {
     }
   };
   return (
+    <>
+   <Navbar />
     <div className={styles.container}>
       <form className={styles.signupForm}>
         <h1 className={styles.h1}>{loading ? "Processing..." : "Login"}</h1>
@@ -60,5 +63,6 @@ export default function Login() {
         </div>
       </form>
     </div>
+    </>
   );
 }

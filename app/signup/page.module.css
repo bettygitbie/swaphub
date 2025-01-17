@@ -5,6 +5,7 @@
   height: 100vh;
   background: #f9f9f9;
   color: var(--primary);
+  margin-top: 1rem;
 }
 .signupForm {
   max-width: 360px;

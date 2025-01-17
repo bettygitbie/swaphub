@@ -8,15 +8,30 @@ export async function GET(request: NextApiRequest) {
   }
   const { searchParams } = new URL(request.url);
   const category = searchParams.get("category");
+  const q = searchParams.get("q");
   try {
-    let filteredItems = await Item.find({
-      category: category?.toString(),
-    }).sort({ createdAt: -1 });
-    return NextResponse.json(
-      { message: "Search results", filteredItems },
-      { status: 200 }
-    );
-  } catch (error) {
+    if (category) {
+      let filteredItems = await Item.find({
+        category: category?.toString(),
+      }).sort({ createdAt: -1 });
+      return NextResponse.json(
+        { message: "Search results", filteredItems },
+        { status: 200 }
+      )}
+    else if(q){
+      let filteredItems = await Item.find({
+        $or: [
+          {title: { $regex:q, $options: 'i'}},
+          { description: {$regex:q, $options:'i'}}
+        ]
+      })
+      return NextResponse.json(
+        { message: "Search results", filteredItems },
+        { status: 200 }
+      )
+    }
+    }
+   catch (error) {
     return NextResponse.json({ error: "unable to fetch" }, { status: 401 });
   }
 }

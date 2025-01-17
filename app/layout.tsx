@@ -21,7 +21,7 @@ export default function RootLayout({
       <body
         className={inter.className}
       >
-        <Navbar />
+
         {children}
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         

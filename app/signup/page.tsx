@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import styles from "./page.module.css";
+import Navbar from "../components/layout/navbar";
 
 export default function Signup() {
   const router = useRouter();
@@ -36,6 +37,8 @@ export default function Signup() {
   }, [user]);
 
   return (
+    <>
+   <Navbar />
     <div className={styles.container}>
       <form className={styles.signupForm}>
         <h1 className={styles.h1}>
@@ -78,5 +81,6 @@ export default function Signup() {
         </div>
       </form>
     </div>
+    </>
   );
 }

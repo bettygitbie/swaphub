@@ -4,7 +4,6 @@ import path from 'path';
 
 const uploadsDir = path.join(process.cwd(), 'uploads');
 
-// Named export for GET method
 export async function GET(req: Request, { params }: { params: { filename: string } }) {
   const { filename } = await params; // Extract filename from URL params
   const filePath = path.join(uploadsDir, filename); // Construct the full file path

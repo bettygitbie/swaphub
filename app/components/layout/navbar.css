@@ -1,3 +1,8 @@
+.main-nav{
+  border-bottom: solid 1px lightgray;
+  background-color: var(--background);
+  
+}
 .outlined-button-login, .outlined-button-signup {
     padding: 10px 15px;
     font-size: 14px;
@@ -6,7 +11,7 @@
     text-decoration: none;
     display: inline-block;
     transition: all 0.3s;
-    
+     
   }
   .outlined-button-login {
     color:white;

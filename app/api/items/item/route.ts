@@ -1,5 +1,8 @@
 import { NextRequest,NextResponse } from "next/server";
 import Item from "@/models/ItemModel";
+import { connectToDatabase } from "@/dbConfig/dbConfig";
+
+connectToDatabase();
 
 export async function GET(request: NextRequest){
     try {

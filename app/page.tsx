@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/layout/navbar";
 import SearchBar from "./components/search/searchBar";
 import Categories from "./components/items/categories";
-import { useRouter } from "next/router";
-import Item from "@/models/ItemModel";
+import { useRouter } from "next/navigation";
+import { Item } from "./components/types/item";
 import axios from "axios";
 
 export default function Home() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState<Item[]>([]);
 
@@ -18,14 +19,17 @@ export default function Home() {
     }
     fetchItems();
   }, []);
-  const handleSearch = (e: any) => {
+  const handleSearch = async (e: any) => {
     e.preventDefault();
     console.log("Searching for", searchQuery);
+    router.push(`/search?q=${searchQuery}`)
+    //console.log(response)
   };
-
+  
 
   return (
     <>
+    <Navbar />
       <main className="min-h-screen bg-gray-50">
         <section className="bg-custom-light-green text-white py-16">
           <div className="container mx-auto px-4">
