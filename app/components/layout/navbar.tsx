@@ -8,6 +8,7 @@ import { getTokenData } from "@/helpers/getTokenData";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddIcon from "@mui/icons-material/Add";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import "./navbar.css";
 
 export default function Navbar() {
@@ -49,6 +50,9 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           {isAuthenticated ? (
             <>
+            <Link href="/dashboard" className="outlined-button-signup">
+                <DashboardIcon /> Dashboard
+              </Link>
               <Link href="/createlisting" className="outlined-button-signup">
                 <AddIcon /> Create Listing
               </Link>

@@ -21,9 +21,7 @@ export default function Home() {
   }, []);
   const handleSearch = async (e: any) => {
     e.preventDefault();
-    console.log("Searching for", searchQuery);
     router.push(`/search?q=${searchQuery}`)
-    //console.log(response)
   };
   
 
@@ -62,16 +60,18 @@ export default function Home() {
                 alt="image"
                 className="w-full h-48 object-cover"
               />
-              <div className="p-4 flex justify-between">
+              <div className="px-4 flex justify-between">
                 <h3 className="text-xl font-semibold">{item.title}</h3>
                 <p className="text-lg float-right">{item.price}</p>
+                
               </div>
+              <p className= {`px-2 float-right ${item.status=== 'available'? "text-green-500":"text-red-500"}`}
+              >{item.status}</p>
             </div>
           ))}
           </div>
         </section>
       </main>
-      {/* RecentItems */}
     </>
   );
 }

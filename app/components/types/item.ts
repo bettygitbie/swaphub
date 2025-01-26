@@ -7,6 +7,7 @@ export interface Item {
   category: Category;
   price: number;
   image: string;
+  status: string;
   location: string;
   owner: string;
   createdAt: Date;

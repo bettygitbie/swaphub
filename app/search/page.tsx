@@ -15,13 +15,15 @@ export default function SearchPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    console.log(params);
 
     try {
       const fetchItems = async () => {
         if (searchParam.get("category"))
           params.set("category", searchParam.get("category")!);
-        else if (searchParam.get("q")) params.set("q", searchParam.get("q"));
+        else if (searchParam.get("q")) {
+          const q = searchParam.get("q");
+          if (q) params.set("q", q);
+        }
         if (params) {
           const response = await axios.get(
             `/api/items/search?${params.toString()}`
@@ -91,6 +93,8 @@ export default function SearchPage() {
                       {result.description.substring(0, 100)}...
                     </p>
                     <p className="text-lg">{result.price}</p>
+                    <p className= {`px-2 float-right ${result.status=== 'available'? "text-green-500":"text-red-500"}`}
+              >{result.status}</p>
                   </div>
                 </div>
               ))
