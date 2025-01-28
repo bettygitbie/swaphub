@@ -12,6 +12,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [error,setError] = useState("")
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +24,8 @@ export default function Login() {
       console.log(response.data);
       router.push("/dashboard");
     } catch (error: any) {
-      console.error("Login failed", error.message);
+      setError(`Email or password incorrect!`)
+      //console.error("Login failed", error.message);
     } finally {
       setLoading(false);
     }
@@ -32,7 +34,8 @@ export default function Login() {
     <>
    <Navbar />
     <div className={styles.container}>
-      <form className={styles.signupForm}>
+      <form className={styles.loginForm}>
+        {error ? <p style={{color:'red'}}>{error}</p> : ""}
         <h1 className={styles.h1}>{loading ? "Processing..." : "Login"}</h1>
 
         <label htmlFor="email">Email:</label>
@@ -59,6 +62,9 @@ export default function Login() {
         <div className={styles.footer}>
           <p>
             Don't have an account? <Link href="/signup">Register</Link>
+          </p>
+          <p>
+             <Link href="/pwreset">Forgot password?</Link>
           </p>
         </div>
       </form>
