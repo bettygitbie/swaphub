@@ -64,7 +64,7 @@ export default function Login() {
             Don't have an account? <Link href="/signup">Register</Link>
           </p>
           <p>
-             <Link href="/pwreset">Forgot password?</Link>
+             <Link href="/pwresetverify">Forgot password?</Link>
           </p>
         </div>
       </form>

@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f9f9f9;
+    color: var(--primary);
+    margin-top: 1rem;
+  }
+  .passwordForm {
+    max-width: 360px;
+    width: 100%;
+    margin: 7rem auto;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: white;
+  }
+  .h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .input {
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    width: 100%;
+    margin: 10px 0;
+  }
+  .input:focus, .input:active {
+      border: 2px solid var(--primary);
+  }
+  .label {
+    display: block;
+    margin: 20px 0 10px;
+  }
+  .button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 10px;
+    color: var(--primary);
+    background: var(--secondary);
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+    float: right;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  .footer{
+      margin-top: 4rem;
+      text-align: center;
+  }
+  
