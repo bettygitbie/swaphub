@@ -7,7 +7,7 @@ connectToDatabase();
 
 export async function GET(request: NextRequest) {
   try {
-    const users = await User.find().select("-password");
+    const users = (await User.find().select("-password")).sort();
     if (!users) {
         return NextResponse.json(
           { message: "There are no users!" },

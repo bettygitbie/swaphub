@@ -13,11 +13,14 @@ export default function AdminLogin() {
   });
   const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const response = await axios.post("/api/admin/login", admin);
       console.log(response);
-      router.push("/admin");
+      if(response.data.success){
+        router.push("/admin/dashboard");
+      }
     } catch (error) {
       setError(`Username or password incorrect!`);
     }
@@ -49,7 +52,7 @@ export default function AdminLogin() {
             value={admin.password}
             onChange={(e) => setAdmin({ ...admin, password: e.target.value })}
           />
-          <button>Login</button>
+          <button className="border p-2 bg-custom-light-green rounded-md">Login</button>
         </form>
       </div>
     </>

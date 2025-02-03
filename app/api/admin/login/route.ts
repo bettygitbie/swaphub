@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         { status: 404 }
       );
     }
-    const validate = bcryptjs.compare(password, admin.password);
+    const validate = await bcryptjs.compare(password, admin.password);
     if (!validate) {
       return NextResponse.json(
         { message: "incorrect password" },
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       );
     }
     const tokenData = {
-      username: admin.username,
+      username: username,
       email: admin.email,
     };
     const token = jwt.sign(tokenData, process.env.ADMIN_SECRET_KEY!, {

@@ -24,5 +24,6 @@ export const config = {
     "/profile",
     "/admin",
     "/admin/users",
+    "/admin/dashboard",
   ],
 };
