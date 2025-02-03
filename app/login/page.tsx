@@ -18,7 +18,7 @@ export default function Login() {
 
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    try {
+    try { 
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
       console.log(response.data);
