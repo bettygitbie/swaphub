@@ -8,13 +8,18 @@ import { User } from "@/app/components/types/user";
 
 export default function Users() {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchUsers = async () => {
     const response = await axios.get("/api/users/allusers");
     setUsers(response.data.users);
   };
   useEffect(() => {
-    fetchUsers();
+    setLoading(true);
+    setTimeout(() => {
+      fetchUsers();
+      setLoading(false);
+    }, 2000);
   }, []);
 
   const handleDelete = async (userId: string) => {
@@ -24,10 +29,10 @@ export default function Users() {
     if (confirmDelete) {
       const response = await axios.delete(`/api/admin/deleteuser/${userId}`);
       console.log(response);
-      if(response.status===200){
+      if (response.status === 200) {
         fetchUsers();
-      }else{
-        console.log('error in deleting!')
+      } else {
+        console.log("error in deleting!");
       }
     } else console.log("You cancelled");
   };
@@ -42,34 +47,43 @@ export default function Users() {
         <Sidebar />
         <div>
           <h2 className="font-bold text-lg px-5">Users</h2>
-          <table className="table-auto w-full mx-5">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>isAdmin</th>
-                <th>Delete?</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr className="border-b-2 border-gray-400" key={user.email}>
-                  <td className="px-4 py-2">{user.username}</td>
-                  <td className="px-4 py-2">{user.email}</td>
-                  <td className="px-4 py-2">{user.isAdmin ? "Yes" : "No"}</td>
-                  <td className="px-4 py-2">
-                    {user.isAdmin ? (<button>✅</button>):( <button
-                      onClick={() => handleDelete(user._id)}
-                      className="border bg-gray-400 p-1 rounded-md text-red-700 "
-                    >
-                      delete
-                    </button>)}
-                   
-                  </td>
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <div className="spinner-border animate-spin inline-block w-14 h-14 border-4 border-solid border-gray-200 rounded-full border-t-4 border-t-green-500"></div>
+            </div>
+          ) : (
+            <table className="table-auto w-full mx-5">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>isAdmin</th>
+                  <th>Delete?</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr className="border-b-2 border-gray-400" key={user.email}>
+                    <td className="px-4 py-2">{user.username}</td>
+                    <td className="px-4 py-2">{user.email}</td>
+                    <td className="px-4 py-2">{user.isAdmin ? "Yes" : "No"}</td>
+                    <td className="px-4 py-2">
+                      {user.isAdmin ? (
+                        <button>✅</button>
+                      ) : (
+                        <button
+                          onClick={() => handleDelete(user._id)}
+                          className="border bg-gray-400 p-1 rounded-md text-red-700 "
+                        >
+                          delete
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </>
