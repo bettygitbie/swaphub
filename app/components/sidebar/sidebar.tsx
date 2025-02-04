@@ -6,7 +6,7 @@ interface SidebarProps {
 
 export default function Sidebar({ handleLogout }: SidebarProps) {
   return (
-    <div className="w-64 bg-custom-light-green text-custom-green p-6">
+    <div className="w-64 h-screen bg-custom-light-green text-custom-green p-6">
       <h1 className="text-2xl mb-4">
         <a href="/dashboard">Dashboard</a>
       </h1>
