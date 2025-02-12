@@ -1,0 +1,84 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "User Authentication API",
+      "version": "1.0.0",
+      "description": "API documentation for Login and Signup endpoints"
+    },
+    "paths": {
+      "/api/signup": {
+        "post": {
+          "summary": "User Signup",
+          "description": "This endpoint creates a new user account by accepting email and password.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "description": "The user's email address",
+                      "example": "user@example.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "The user's password",
+                      "example": "Password123"
+                    }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "User created successfully"
+              },
+              "400": {
+                "description": "Invalid input"
+              }
+            }
+          }
+        }
+      },
+      "/api/login": {
+        "post": {
+          "summary": "User Login",
+          "description": "This endpoint logs in a user using their email and password.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "description": "The user's email address",
+                      "example": "user@example.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "The user's password",
+                      "example": "Password123"
+                    }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Login successful"
+              },
+              "401": {
+                "description": "Invalid credentials"
+              }
+            }
+          }
+        }
+      }
+    }
+  }

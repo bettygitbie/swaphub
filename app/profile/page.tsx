@@ -6,6 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import Navbar from "../components/layout/navbar";
 import styles from './page.module.css'
+import Link from "next/link";
 
 export default function Profile() {
   const router = useRouter();
@@ -45,16 +46,7 @@ export default function Profile() {
                 placeholder="Update your email..."
               />
             </div>
-            <div>
-              <label htmlFor="price">Password:</label>
-              <input
-                required
-                type="text"
-                name="price"
-                id="price"
-                placeholder="Update your password..."
-              />
-            </div>
+           <div><p>Reset your password <Link href='/pwresetverify'>here</Link> .</p></div>
             <button>Update</button>
           </form>
         </div>

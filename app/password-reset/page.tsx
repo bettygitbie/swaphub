@@ -23,21 +23,22 @@ function Pwreset() {
     e.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match!");
-    }
-    try {
-      const response = await axios.post("/api/users/reset-password", {
-        token,
-        password,
-      });
-      console.log(response);
-      if (response.data.success) {
-        setSuccess(
-          "Password reset successful. You can now login with your new password."
-        );
-        setError("");
+    } else {
+      try {
+        const response = await axios.post("/api/users/reset-password", {
+          token,
+          password,
+        });
+        console.log(response);
+        if (response.data.success) {
+          setSuccess(
+            "Password reset successful. You can now login with your new password."
+          );
+          setError("");
+        }
+      } catch (error) {
+        setError("Error resetting password. Please try again!");
       }
-    } catch (error) {
-      setError("Error resetting password. Please try again!");
     }
   };
 

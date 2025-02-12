@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import User from "@/models/UserModel";
 import { User as UserType } from "@/app/components/types/user";
 import { Item, Item as ItemType } from "@/app/components/types/item";
