@@ -1,3 +1,4 @@
+import { Description } from "@mui/icons-material";
 import { createSwaggerSpec } from "next-swagger-doc";
 
 export const getApiDocs = async () => {
@@ -190,9 +191,192 @@ export const getApiDocs = async () => {
               },
               500: {
                 description: "Internal server error.",
-              }
+              },
             },
           },
+        },
+        "/allusers": {
+          get: {
+            tags: ["Users"],
+            summary: "Get all users",
+            description: "Get all users. This is done by Admin only",
+            responses: {
+              200: {
+                description: "Users found.",
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        message: {
+                          type: "string",
+                          example: "Users found",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              404: {
+                description: "There are no users.",
+              },
+              500: {
+                description: "Internal server error.",
+              },
+            },
+          },
+        },
+        "/user": {
+          get: {
+            tags: ["Users"],
+            summary: "Get single user information",
+            description: "Get single user information",
+            responses: {
+              200: {
+                description: "User found",
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        _id: {
+                          type: "string",
+                          example: "67abe8bc98863972d8b944df",
+                        },
+                        username: {
+                          type: "string",
+                          example: "John Doe",
+                        },
+                        email: { type: "string", example: "user@example.com" },
+                        isAdmin: {
+                          type: "boolean",
+                          example: false,
+                        },
+                        isVerified: {
+                          type: "boolean",
+                          example: false,
+                        },
+                        createdAt: {
+                          type: "date",
+                          example: "2025-02-11T14:15:52.555+00:00",
+                        },
+                        updatedAt: {
+                          type: "date",
+                          example: "2025-02-11T14:15:52.555+00:00",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              404: {
+                description: "User not found! Please signin.",
+              },
+              500: {
+                description: "Internal server error.",
+              },
+            },
+          },
+        },
+        '/profile':{
+          put: {
+            tags: ['Users'],
+            description: 'Update the user\'s profile',
+            summary: 'update user\'s profile',
+          }
+        },
+        '/items/item':{
+          get: {
+            tags:['Items'],
+            description: 'Get all items sorted',
+            summary: 'Get all items',
+            responses:{
+              200: {
+                description: 'Items found',
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        message: {
+                          type: "string",
+                          example: "Items found",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              400: {
+                description: "There are no items.",
+              },
+            }
+          }
+        },
+        '/items/[id]':{
+          patch:{
+            tags:['Items'],
+            description: 'Patch/edit item by Id',
+            summary: 'edit item',
+            requestBody:{
+              content:{
+                'application/json':{
+                  schema:{
+                    type: 'object',
+                    properties: {
+                      name:{
+                        type:'string',
+                        example: 'Test Item',
+                      },
+                      description: {
+                        type: 'string',
+                        example: 'This is a test item'
+                      },
+                      price: {
+                        type: 'float',
+                        example: 4.99,
+                      },
+                      status:{
+                        type:'string',
+                        example: 'available'
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            responses: {
+              200: {
+                description: 'Item updated successfully.',
+                content: {
+                  'application/json':{
+                    schema:{
+                      type: 'object',
+                      properties: {
+                        name:{
+                          type:'string',
+                          example: 'Test Item',
+                        },
+                        description: {
+                          type: 'string',
+                          example: 'This is a test item'
+                        },
+                        price: {
+                          type: 'float',
+                          example: 3.99,
+                        },
+                        status:{
+                          type:'string',
+                          example: 'sold'
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              
+            },
+          }
         },
         security: [],
       },
