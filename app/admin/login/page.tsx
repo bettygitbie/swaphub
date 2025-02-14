@@ -22,7 +22,7 @@ export default function AdminLogin() {
         router.push("/admin/dashboard");
       }
     } catch (error) {
-      setShowError(`Username or password incorrect!`);
+      setShowError(`Username or password incorrect!`+ error);
     }
   };
   return (

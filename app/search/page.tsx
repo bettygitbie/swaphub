@@ -10,7 +10,6 @@ import Image from "next/image";
 
 export default function SearchPage() {
   const searchParam = useSearchParams();
-  const router = useRouter();
   const [searchResult, setSearchResult] = useState<Item[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
@@ -94,8 +93,15 @@ export default function SearchPage() {
                       {result.description.substring(0, 100)}...
                     </p>
                     <p className="text-lg">{result.price}</p>
-                    <p className= {`px-2 float-right ${result.status=== 'available'? "text-green-500":"text-red-500"}`}
-              >{result.status}</p>
+                    <p
+                      className={`px-2 float-right ${
+                        result.status === "available"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {result.status}
+                    </p>
                   </div>
                 </div>
               ))

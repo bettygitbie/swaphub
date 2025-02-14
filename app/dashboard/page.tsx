@@ -51,6 +51,7 @@ export default function Dashboard() {
       <div className="min-h-screen flex text-custom-green">
         <Sidebar handleLogout={handleLogout} />
         <div className="flex-1 p-8">
+          <ToastContainer />
           <div className="flex justify-between items-center mb-6">
             <h1>Welcome to your dashboard, {user?.username} </h1>
           </div>

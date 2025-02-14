@@ -40,8 +40,10 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
 
   const handleDelete = async () => {
     await axios.delete("/api/items/deleteitem").then((response) => {
-      router.push("/dashboard");
-      fetchItems();
+      if (response.data) {
+        router.push("/dashboard");
+        fetchItems();
+      }
     });
   };
 

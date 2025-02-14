@@ -104,7 +104,7 @@ export default function Admin() {
               <li className="mb-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-700">
-                    New product added: "Wireless Headphones"
+                    New product added:
                   </span>
                   <span className="text-sm text-gray-500">30 mins ago</span>
                 </div>

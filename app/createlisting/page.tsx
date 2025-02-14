@@ -62,7 +62,9 @@ export default function CreateListing() {
       .post("/api/items/createlisting", formDataToSend, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then((response) => router.push("/dashboard"))
+      .then((response) => {
+        if (response) router.push("/dashboard");
+      })
       .catch((error) => toast.error("Failed to create listing" + error));
   };
 
@@ -71,7 +73,7 @@ export default function CreateListing() {
       await axios.get("/api/users/logout");
       router.push("/");
     } catch (error) {
-      toast.error("Failed to logout"+ error);
+      toast.error("Failed to logout" + error);
     }
   };
 

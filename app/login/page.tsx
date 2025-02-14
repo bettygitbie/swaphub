@@ -105,7 +105,7 @@ export default function Login() {
           </button>
           <div className={styles.footer}>
             <p>
-              Don't have an account? <Link href="/signup">Register</Link>
+              Don&#39;t have an account? <Link href="/signup">Register</Link>
             </p>
             <p>
               <Link href="/pwresetverify">Forgot password?</Link>
