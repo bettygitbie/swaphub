@@ -11,7 +11,7 @@ export default function AdminLogin() {
     username: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [showError, setShowError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export default function AdminLogin() {
         router.push("/admin/dashboard");
       }
     } catch (error) {
-      setError(`Username or password incorrect!`);
+      setShowError(`Username or password incorrect!`);
     }
   };
   return (
@@ -34,7 +34,7 @@ export default function AdminLogin() {
       </div>
       <div>
         <form className={styles.loginForm} onSubmit={handleSubmit}>
-          {error && <p className="text-red-600">{error}</p>}
+          {showError && <p className="text-red-600">{showError}</p>}
           <h1 className="font-bold ">Admin Login</h1>
           <label htmlFor="username">Username:</label>
           <input

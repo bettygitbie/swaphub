@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/layout/navbar";
 import Link from "next/link";
 import styles from "@/app/admin/page.module.css";
 import axios from "axios";

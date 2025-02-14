@@ -7,7 +7,6 @@ connectToDatabase();
 
 export async function PATCH(request: NextRequest){
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
     const userId = await getTokenData(request)
     if(userId){
         try {

@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest} from "next";
 import { NextResponse } from "next/server";
 import Item from "@/models/ItemModel";
 
@@ -11,7 +11,7 @@ export async function GET(request: NextApiRequest) {
   const q = searchParams.get("q");
   try {
     if (category) {
-      let filteredItems = await Item.find({
+      const filteredItems = await Item.find({
         category: category?.toString(),
       }).sort({ createdAt: -1 });
       return NextResponse.json(
@@ -32,6 +32,6 @@ export async function GET(request: NextApiRequest) {
     }
     }
    catch (error) {
-    return NextResponse.json({ error: "unable to fetch" }, { status: 401 });
+    return NextResponse.json({ error: "unable to fetch", details: error }, { status: 401 });
   }
 }

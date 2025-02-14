@@ -28,6 +28,6 @@ export async function GET(req: Request, { params }: { params: { filename: string
       status: 200,
     });
   } catch (err) {
-    return new Response('File not found', { status: 404 });
+    return new Response(JSON.stringify({message:'File not found',err}), { status: 404, headers: { 'Content-Type': 'application/json' } });
   }
 }

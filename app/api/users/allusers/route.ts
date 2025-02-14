@@ -1,11 +1,11 @@
-import { getTokenData } from "@/helpers/getTokenData";
-import { NextRequest, NextResponse } from "next/server";
+//import { getTokenData } from "@/helpers/getTokenData";
+import { NextResponse } from "next/server";
 import User from "@/models/UserModel";
 import { connectToDatabase } from "@/dbConfig/dbConfig";
 
 connectToDatabase();
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const users = (await User.find().select("-password")).sort();
     if (!users) {
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     // } else {
     //     return NextResponse.json({ message: "Users not found! Please sign in!" }, { status: 404 });
     // }
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }

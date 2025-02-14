@@ -15,6 +15,6 @@ export async function DELETE(request:NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    return NextResponse.json({ message: "user not found" }, { status: 403 });
+    return NextResponse.json({ message: "user not found", error }, { status: 403 });
   }
 }

@@ -10,7 +10,7 @@ connectToDatabase();
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
-  for (let [key, value] of formData.entries()) {
+  for (const [key, value] of formData.entries()) {
     console.log(`FD ${key}: ${value}`);
   }
   const title = formData.get("title") as string;
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       { message: "Item created successfully", item },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
