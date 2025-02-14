@@ -1,9 +1,8 @@
 "use client";
-import { useState } from "react";
-import User from "@/models/UserModel";
 import Sidebar from "../components/sidebar/sidebar";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { ToastContainer,toast } from "react-toastify";
 import Navbar from "../components/layout/navbar";
 import styles from './page.module.css'
 import Link from "next/link";
@@ -19,8 +18,8 @@ export default function Profile() {
     try {
       await axios.get("/api/users/logout");
       router.push("/");
-    } catch (error: any) {
-      console.error("Failed to logout", error);
+    } catch (error) {
+      toast.error("Failed to logout"+ error);
     }
   };
   return (
@@ -29,6 +28,7 @@ export default function Profile() {
       <div className="flex">
         <Sidebar handleLogout={handleLogout} />
         <div className={styles.container}>
+          <ToastContainer />
           <h1>Update your profile</h1>
           <form action="" className={styles.form}>
             <div>

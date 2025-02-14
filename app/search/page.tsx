@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CATEGORIES } from "../components/types/categories";
 import axios from "axios";
 import Navbar from "../components/layout/navbar";
+import Image from "next/image";
 
 export default function SearchPage() {
   const searchParam = useSearchParams();
@@ -37,12 +38,12 @@ export default function SearchPage() {
     }
   }, [searchParam]);
 
-  const handleRadioChange = async (
-    value: string,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    router.push(`/search?category=${value.toLowerCase()}`);
-  };
+  // const handleRadioChange = async (
+  //   value: string,
+  //   e: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   router.push(`/search?category=${value.toLowerCase()}`);
+  // };
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
@@ -82,7 +83,7 @@ export default function SearchPage() {
                   key={result._id}
                   className="bg-white shadow-lg overflow-hidden"
                 >
-                  <img
+                  <Image
                     src={`/api/images/${result.image}`}
                     alt="image"
                     className="w-full h-48 object-cover"

@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import { CATEGORIES } from "../components/types/categories";
-import { Category } from "../components/types/categories";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Sidebar from "../components/sidebar/sidebar";
 import Navbar from "../components/layout/navbar";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function CreateListing() {
   const router = useRouter();
@@ -57,123 +57,113 @@ export default function CreateListing() {
     if (image) {
       formDataToSend.append("image", image);
     }
-    for (let [key, value] of formDataToSend.entries()) {
-      console.log(`${key}: ${value}`);
-    }
 
+    await axios
+      .post("/api/items/createlisting", formDataToSend, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => router.push("/dashboard"))
+      .catch((error) => toast.error("Failed to create listing" + error));
+  };
+
+  const handleLogout = async () => {
     try {
-      const response = await axios.post(
-        "/api/items/createlisting",
-        formDataToSend,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      console.log("Item created :", response.data);
-
-      router.push("/dashboard");
-    } catch (error: any) {
-      console.error("Failed to create listing", error);
+      await axios.get("/api/users/logout");
+      router.push("/");
+    } catch (error) {
+      toast.error("Failed to logout"+ error);
     }
   };
 
-  const handleLogout = async () =>{
-    try {
-        await axios.get("/api/users/logout");
-        router.push("/");
-    } catch (error: any) {
-      console.error("Failed to logout", error);  
-    }
-  }
-
   return (
     <>
-    <Navbar />
-    <div className="flex">
-      <Sidebar handleLogout={handleLogout} />
-      <div className={styles.container}>
-        <h1>Create a new listing</h1>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <form action="" onSubmit={handleSubmit} className={styles.form}>
-          <div>
-            <label htmlFor="title">Title:</label>
-            <input
-              required
-              type="text"
-              name="title"
-              id="title"
-              placeholder="Enter item title"
-              value={formData.title}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="description">Description:</label>
-            <textarea
-              required
-              placeholder="Describe your item"
-              name="description"
-              id="description"
-              cols={30}
-              rows={5}
-              value={formData.description}
-              onChange={handleInputChange}
-            ></textarea>
-          </div>
-          <div>
-            <label htmlFor="price">Price:</label>
-            <input
-              required
-              type="number"
-              name="price"
-              id="price"
-              placeholder="0.0"
-              value={formData.price}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="location">Location:</label>
-            <input
-              type="text"
-              name="location"
-              id="location"
-              placeholder="Enter item location"
-              value={formData.location}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="image">Image:</label>
-            <input
-              type="file"
-              name="image"
-              id="image"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-          </div>
-          <div>
-            <label htmlFor="category">Category:</label>
-            <select
-              name="category"
-              id="category"
-              required
-              value={formData.category}
-              onChange={handleInputChange}
-            >
-              <option value="">Select a category</option>
-              {CATEGORIES.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button type="submit">Create Listing</button>
-        </form>
+      <Navbar />
+      <div className="flex">
+        <Sidebar handleLogout={handleLogout} />
+        <ToastContainer />
+        <div className={styles.container}>
+          <h1>Create a new listing</h1>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          <form action="" onSubmit={handleSubmit} className={styles.form}>
+            <div>
+              <label htmlFor="title">Title:</label>
+              <input
+                required
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Enter item title"
+                value={formData.title}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="description">Description:</label>
+              <textarea
+                required
+                placeholder="Describe your item"
+                name="description"
+                id="description"
+                cols={30}
+                rows={5}
+                value={formData.description}
+                onChange={handleInputChange}
+              ></textarea>
+            </div>
+            <div>
+              <label htmlFor="price">Price:</label>
+              <input
+                required
+                type="number"
+                name="price"
+                id="price"
+                placeholder="0.0"
+                value={formData.price}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="location">Location:</label>
+              <input
+                type="text"
+                name="location"
+                id="location"
+                placeholder="Enter item location"
+                value={formData.location}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="image">Image:</label>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="category">Category:</label>
+              <select
+                name="category"
+                id="category"
+                required
+                value={formData.category}
+                onChange={handleInputChange}
+              >
+                <option value="">Select a category</option>
+                {CATEGORIES.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button type="submit">Create Listing</button>
+          </form>
+        </div>
       </div>
-    </div>
     </>
   );
 }

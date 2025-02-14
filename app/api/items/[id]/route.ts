@@ -10,7 +10,7 @@ export async function PATCH(request:Request){
         const updatedItem = await Item.findByIdAndUpdate(body._id, {$set:body});
         return NextResponse.json({message:"Item updated successfully!",updatedItem}); 
     } catch (error) {
-        NextResponse.json({error: 'Error updating item'},{status:500})
+        NextResponse.json({message: 'Error updating item', error},{status:500})
     }
     
 }

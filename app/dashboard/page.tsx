@@ -1,9 +1,9 @@
 "use client";
-import User from "@/models/UserModel";
 import { User as UserType } from "@/app/components/types/user";
 import { Item, Item as ItemType } from "@/app/components/types/item";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ToastContainer,toast } from "react-toastify";
 import Navbar from "../components/layout/navbar";
 import axios from "axios";
 import Sidebar from "../components/sidebar/sidebar";
@@ -12,7 +12,6 @@ import ItemCard from "../components/items/itemcard";
 export default function Dashboard() {
   const [user, setUser] = useState<UserType | null>(null);
   const [items, setItems] = useState<ItemType[]>([]);
-  const [editItem, setEditItem] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,8 +20,8 @@ export default function Dashboard() {
         const response = await axios.get("/api/users/user");
         setUser(response.data.user);
         fetchItems();
-      } catch (error: any) {
-        console.error("Failed to fetch user data", error);
+      } catch (error) {
+        toast.error("Failed to fetch user data"+ error);
       }
     }
     fetchUser();
@@ -37,13 +36,13 @@ export default function Dashboard() {
     try {
       await axios.get("/api/users/logout");
       router.push("/");
-    } catch (error: any) {
-      console.error("Failed to logout", error);
+    } catch (error) {
+      toast.error("Failed to logout"+ error);
     }
   };
 
   const handleUpdate = async(updatedData : Item)=>{
-    console.log("updated", updatedData)
+    toast.success("Update success: "+ updatedData)
   }
 
   return (
@@ -59,7 +58,7 @@ export default function Dashboard() {
             {items.length === 0 ? (
               <div className="col-span-full text-center">
                 <p className="text-xl text-gray-600">
-                  You haven't uploaded any items yet.
+                  You haven&#39;t uploaded any items yet.
                 </p>
               </div>
             ) : (

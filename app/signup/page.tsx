@@ -32,9 +32,11 @@ export default function Signup() {
         if (response.status === 200) {
           router.push("/login");
         }
+        /* eslint-disable @typescript-eslint/no-explicit-any */
       } catch (error: any) {
         setShowError(error.response.data.message);
         toast.error("Signup failed", error.response.data.message);
+        /* eslint-enable @typescript-eslint/no-explicit-any */
       } finally {
         setLoading(false);
       }

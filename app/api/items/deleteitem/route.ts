@@ -12,7 +12,7 @@ export async function DELETE(request: NextRequest){
             await Item.findOneAndDelete({owner: typeof userId === 'string' ? userId : userId.id})
             return NextResponse.json({message:"Item deleted"}, {status:200})
         } catch (error) {
-            return NextResponse.json({error:error},{status: 500})
+            return NextResponse.json({message:"Error deleting item", error},{status: 500})
         }
         
     }

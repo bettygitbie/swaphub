@@ -29,7 +29,7 @@ function Pwreset() {
           token,
           password,
         });
-        console.log(response);
+    
         if (response.data.success) {
           setSuccess(
             "Password reset successful. You can now login with your new password."
@@ -37,7 +37,8 @@ function Pwreset() {
           setError("");
         }
       } catch (error) {
-        setError("Error resetting password. Please try again!");
+        if(error)
+         setError("Error resetting password. Please try again!");
       }
     }
   };

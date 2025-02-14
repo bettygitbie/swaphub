@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Item } from "../types/item";
+import Image from "next/image";
 
 interface ItemCardProps {
   item: Item;
@@ -14,7 +15,8 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editItem, setEditItem] = useState({ ...item });
 
-  const statusClass = item.status === 'available'? "text-green-500" :"text-red-500";
+  const statusClass =
+    item.status === "available" ? "text-green-500" : "text-red-500";
 
   // Toggle between view mode and edit mode
   const handleEdit = () => {
@@ -26,7 +28,9 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
     setEditItem({ ...item }); // Reset to original item state
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setEditItem((prevItem: typeof item) => ({
       ...prevItem,
@@ -34,17 +38,20 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
     }));
   };
 
-  const handleDelete = async (id: string) => {
-    const response = await axios.delete("/api/items/deleteitem");
-    router.push("/dashboard");
-    fetchItems();
-    //setItems((items) => items.filter((item) => item._id !== id));
+  const handleDelete = async () => {
+    await axios.delete("/api/items/deleteitem").then((response) => {
+      router.push("/dashboard");
+      fetchItems();
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(`/api/items/${editItem._id}`, editItem); 
+      const response = await axios.patch(
+        `/api/items/${editItem._id}`,
+        editItem
+      );
       updateItem(response.data);
       fetchItems();
       setIsEditing(false); // Exit edit mode
@@ -61,7 +68,7 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
           <div className="">
             <label>Name:</label>
             <input
-            className="border p-1"
+              className="border p-1"
               type="text"
               name="title"
               value={editItem.title}
@@ -71,7 +78,7 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
           <div>
             <label>Description:</label>
             <input
-             className="border p-1"
+              className="border p-1"
               type="text"
               name="description"
               value={editItem.description}
@@ -81,7 +88,7 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
           <div>
             <label>Price:</label>
             <input
-             className="border p-1"
+              className="border p-1"
               type="number"
               name="price"
               value={editItem.price}
@@ -103,8 +110,17 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
             </select>
           </div>
           <div className="flex justify-between">
-            <button className="border rounded-lg p-2 bg-[var(--secondary)]" type="submit">Save</button>
-            <button className="border rounded-lg p-2 bg-[var(--secondary)]"  type="button" onClick={handleCancel}>
+            <button
+              className="border rounded-lg p-2 bg-[var(--secondary)]"
+              type="submit"
+            >
+              Save
+            </button>
+            <button
+              className="border rounded-lg p-2 bg-[var(--secondary)]"
+              type="button"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
           </div>
@@ -113,7 +129,7 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
         // Display item
         <div>
           <div key={item._id} className="bg-white shadow-lg overflow-hidden">
-            <img
+            <Image
               src={`/api/images/${item.image}`}
               alt="image"
               className="w-full h-48 object-cover"
@@ -131,7 +147,7 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
                 Edit
               </button>
               <button
-                onClick={() => handleDelete(item._id)}
+                onClick={() => handleDelete()}
                 className="float-right mr-3"
               >
                 Delete

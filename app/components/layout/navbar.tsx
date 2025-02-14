@@ -1,19 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import User from "@/models/UserModel";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { getTokenData } from "@/helpers/getTokenData";
-
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddIcon from "@mui/icons-material/Add";
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { ToastContainer,toast } from "react-toastify";
 import "./navbar.css";
 
 export default function Navbar() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   useEffect(() => {
     
     async function fetchToken() {
@@ -24,8 +22,8 @@ export default function Navbar() {
         }
         const data = await response.json()
         if (data.tokenData) setIsAuthenticated(true);
-      } catch (error: any) {
-        console.log("Failed to fetch user data", error);
+      } catch (error) {
+        toast.error("Failed to fetch user data"+ error)
       }
     }
     fetchToken();
@@ -36,8 +34,8 @@ export default function Navbar() {
       await axios.get("/api/users/logout");
       setIsAuthenticated(false);
       router.push("/");
-    } catch (error: any) {
-      console.error("Failed to logout", error);
+    } catch (error) {
+      toast.error("Failed to logout"+ error);
     }
   };
 
@@ -72,6 +70,7 @@ export default function Navbar() {
           )}
         </div>
       </div>
+      <ToastContainer />
     </nav>
   );
 }

@@ -30,6 +30,6 @@ export async function GET() {
     //     return NextResponse.json({ message: "Users not found! Please sign in!" }, { status: 404 });
     // }
   } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    return NextResponse.json({ message: "Error fetching users",error }, { status: 500 });
   }
 }

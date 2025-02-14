@@ -6,7 +6,7 @@ import { connectToDatabase } from "@/dbConfig/dbConfig";
 connectToDatabase();
 
 export async function PATCH(request: NextRequest){
-    const { searchParams } = new URL(request.url);
+    //const { searchParams } = new URL(request.url);
     const userId = await getTokenData(request)
     if(userId){
         try {

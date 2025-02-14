@@ -7,7 +7,7 @@ import axios from "axios";
 function Passwordreset() {
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [showError, setShowError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,10 +18,10 @@ function Passwordreset() {
           "If you provided an email on file, a password reset link has been sent to your email address."
         );
       } else {
-        setError('An error occurred while sending the email.')
+        setShowError('An error occurred while sending the email.')
       }
     } catch (error) {
-      setError('Error sending the password reset email')
+      setShowError('Error sending the password reset email'+ error)
     }
   };
 
@@ -32,7 +32,7 @@ function Passwordreset() {
        
         <form onSubmit={handleSubmit} className={styles.passwordForm}>
         {message && <p className="text-green-500">{message}</p>}
-        {error && <p className="text-red-500">{error}</p>}
+        {showError && <p className="text-red-500">{showError}</p>}
           <h1>Enter your email:</h1>
           <input
             type="email"

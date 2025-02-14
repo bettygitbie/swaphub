@@ -5,7 +5,6 @@ import bcryptjs from "bcryptjs";
 
 export async function POST(request: NextRequest) {
   const admin = await createAdmin();
-  console.log('admin is',admin);
   try {
     const { username, password } = await request.json();
     if (!username || !password) {
@@ -35,7 +34,6 @@ export async function POST(request: NextRequest) {
     response.cookies.set("token", token, { httpOnly: true });
     return response;
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ message:"Internal server error", error }, { status: 500 });
   }
 }

@@ -5,6 +5,7 @@ import SearchBar from "./components/search/searchBar";
 import Categories from "./components/items/categories";
 import { useRouter } from "next/navigation";
 import { Item } from "./components/types/item";
+import Image from "next/image";
 import axios from "axios";
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
     }
     fetchItems();
   }, []);
-  const handleSearch = async (e: any) => {
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?q=${searchQuery}`)
   };
@@ -38,7 +39,7 @@ export default function Home() {
             <SearchBar
               query={searchQuery}
               onQueryChange={setSearchQuery}
-              onSearch={handleSearch}
+              onSearch={()=>handleSearch}
             />
           </div>
         </section>
@@ -55,7 +56,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {items.map((item) => (
             <div key={item._id} className="bg-white shadow-lg overflow-hidden">
-              <img
+              <Image
                 src={`/api/images/${item.image}`}
                 alt="image"
                 className="w-full h-48 object-cover"

@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import styles from "./page.module.css";
 import Navbar from "../components/layout/navbar";
-import { FileX } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
@@ -45,11 +44,13 @@ export default function Login() {
         const response = await axios.post("/api/users/login", user);
         toast.success(response.data.message);
         router.push("/dashboard");
-      } catch (error: any) {
+       /* eslint-disable @typescript-eslint/no-explicit-any */ 
+      } catch (error:any) {
         setShowError(error.response.data.message);
         if (error.response) {
           toast.error(error.response.data.message || "Something went wrong");
         }
+        /* eslint-enable @typescript-eslint/no-explicit-any */
       } finally {
         setUser({ email: "", password: "" });
         setLoading(false);

@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     } else {
         return NextResponse.json({ message: "User not found! Please sign in!" }, { status: 404 });
     }
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ message:"Internal server error", error }, { status: 500 });
   }
 }

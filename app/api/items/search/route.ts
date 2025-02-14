@@ -19,7 +19,7 @@ export async function GET(request: NextApiRequest) {
         { status: 200 }
       )}
     else if(q){
-      let filteredItems = await Item.find({
+      const filteredItems = await Item.find({
         $or: [
           {title: { $regex:q, $options: 'i'}},
           { description: {$regex:q, $options:'i'}}
