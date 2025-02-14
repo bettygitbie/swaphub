@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Item } from "../types/item";
-import Image from "next/image";
 
 interface ItemCardProps {
   item: Item;
@@ -131,7 +130,7 @@ function ItemCard({ item, updateItem, fetchItems }: ItemCardProps) {
         // Display item
         <div>
           <div key={item._id} className="bg-white shadow-lg overflow-hidden">
-            <Image
+            <img
               src={`/api/images/${item.image}`}
               alt="image"
               className="w-full h-48 object-cover"

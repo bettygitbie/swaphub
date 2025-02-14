@@ -1,12 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Item } from "../components/types/item";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CATEGORIES } from "../components/types/categories";
 import axios from "axios";
 import Navbar from "../components/layout/navbar";
-import Image from "next/image";
 
 export default function SearchPage() {
   const searchParam = useSearchParams();
@@ -82,7 +81,7 @@ export default function SearchPage() {
                   key={result._id}
                   className="bg-white shadow-lg overflow-hidden"
                 >
-                  <Image
+                  <img
                     src={`/api/images/${result.image}`}
                     alt="image"
                     className="w-full h-48 object-cover"
