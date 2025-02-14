@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import styles from "./page.module.css";
 import Navbar from "../components/layout/navbar";
+import { FileX } from "lucide-react";
 
 export default function Login() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function Login() {
     password: "",
   });
   const [showError, setShowError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -26,6 +28,11 @@ export default function Login() {
       setButtonDisabled(true);
     }
   }, [user]);
+
+  const handleTogglePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -42,7 +49,7 @@ export default function Login() {
         setShowError(error.response.data.message);
         if (error.response) {
           toast.error(error.response.data.message || "Something went wrong");
-        } 
+        }
       } finally {
         setUser({ email: "", password: "" });
         setLoading(false);
@@ -59,26 +66,41 @@ export default function Login() {
           <h1 className={styles.h1}>{loading ? "Processing..." : "Login"}</h1>
 
           <label htmlFor="email">Email:</label>
-          <input
-            className={styles.input}
-            type="email"
-            id="email"
-            placeholder="Email"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-            required
-          />
+          <div style={{ display: "flex" }}>
+            <input
+              className={styles.input}
+              type="email"
+              id="email"
+              placeholder="Email"
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              required
+            />
+          </div>
           <label htmlFor="password">Password:</label>
-          <input
-            className={styles.input}
-            type="password"
-            id="password"
-            placeholder="Password"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-          />
-          <button className={styles.button} disabled={buttonDisabled} onClick={onSubmit}>
-            {loading? "Processing..." : "Login"}
+          <div style={{ display: "flex", alignItems: "center", position:'relative' }}>
+            <input
+              className={styles.input}
+              type={showPassword ? "text" : "password"}
+              id="password"
+              placeholder="Password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+            />
+            <button
+            type="button"
+              className={styles.showPasswordBtn}
+              onClick={handleTogglePassword}
+            >
+              👁
+            </button>
+          </div>
+          <button
+            className={styles.button}
+            disabled={buttonDisabled}
+            onClick={onSubmit}
+          >
+            {loading ? "Processing..." : "Login"}
           </button>
           <div className={styles.footer}>
             <p>

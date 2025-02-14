@@ -10,6 +10,11 @@ import Link from "next/link";
 
 export default function Profile() {
   const router = useRouter();
+  const handleUpdate = async () =>{
+    await axios.post('/api/users/profile')
+      .then()
+      .catch()
+  }
   const handleLogout = async () => {
     try {
       await axios.get("/api/users/logout");
@@ -47,7 +52,7 @@ export default function Profile() {
               />
             </div>
            <div><p>Reset your password <Link href='/pwresetverify'>here</Link> .</p></div>
-            <button>Update</button>
+            <button onClick={handleUpdate}>Update</button>
           </form>
         </div>
       </div>

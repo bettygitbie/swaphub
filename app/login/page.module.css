@@ -51,6 +51,12 @@
     width: 100%;
     transition: background-color 0.3s;
   }
+  .showPasswordBtn{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform:translateY(-50%);
+  }
   .footer{
       margin-top: 4rem;
       text-align: center;
