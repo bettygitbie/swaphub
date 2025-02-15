@@ -1,11 +1,12 @@
 // 
 import fs from 'fs';
 import path from 'path';
+import { NextResponse } from 'next/server';
 
 const uploadsDir = path.join(process.cwd(), 'uploads');
 
-export async function GET(req: Request, context: { params: { filename: string } }) {
-  const { filename } = context.params; // Extract filename from URL params
+export async function GET(req: Request, { params }: { params: { filename: string } }) {
+  const { filename } = params; // Extract filename from URL params
   const filePath = path.join(uploadsDir, filename); // Construct the full file path
 
   try {
@@ -23,11 +24,11 @@ export async function GET(req: Request, context: { params: { filename: string } 
     }
 
     // Return the image data with the correct content type
-    return new Response(data, {
+    return new NextResponse(data, {
       headers: { 'Content-Type': contentType },
       status: 200,
     });
   } catch (err) {
-    return new Response(JSON.stringify({message:'File not found',err}), { status: 404, headers: { 'Content-Type': 'application/json' } });
+    return new NextResponse(JSON.stringify({message:'File not found',err}), { status: 404, headers: { 'Content-Type': 'application/json' } });
   }
 }
