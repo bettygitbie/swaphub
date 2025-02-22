@@ -1,8 +1,8 @@
-import { NextApiRequest} from "next";
-import { NextResponse } from "next/server";
+//import { NextApiRequest} from "next";
+import { NextResponse, NextRequest } from "next/server";
 import Item from "@/models/ItemModel";
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   if (!request.url) {
     return NextResponse.json({ error: "Invalid request URL" }, { status: 400 });
   }
