@@ -13,7 +13,7 @@ export default function Home() {
   const [items, setItems] = useState<Item[]>([]);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [owner,setOwner] = useState("")
+  const [owner, setOwner] = useState("");
 
   useEffect(() => {
     async function fetchItems() {
@@ -22,29 +22,35 @@ export default function Home() {
     }
     fetchItems();
   }, []);
-  useEffect(() => {
-    async function checkToken() {
+
+  async function checkToken() {
+    try {
       const res = await axios.get("/api/users/user");
       if (res.data.message === "User found") setIsLoggedIn(true);
+      else setIsLoggedIn(false);
+    } catch (error) {
+      process.exit(1);
     }
-    checkToken();
-  }, []);
+  }
 
   async function ownerInfo() {
-    if(selectedItem){
-      console.log("selected owner ",selectedItem.owner)
-      const res = await axios.get("/api/items/itemowner", { params: { owner: selectedItem.owner } });
-      setOwner(res.data.email)
+    if (selectedItem) {
+      console.log("selected owner ", selectedItem.owner);
+      const res = await axios.get("/api/items/itemowner", {
+        params: { owner: selectedItem.owner },
+      });
+      setOwner(res.data.email);
       console.log(res.data);
     }
   }
-  
+
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?q=${searchQuery}`);
   };
 
   const openModal = (item: Item) => {
+    checkToken();
     if (isLoggedIn) {
       setSelectedItem(item);
       ownerInfo();
