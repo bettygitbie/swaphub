@@ -43,7 +43,7 @@ export default function Login() {
         setLoading(true);
         const response = await axios.post("/api/users/login", user);
         toast.success(response.data.message);
-        router.push("/dashboard");
+        router.push("/");
        /* eslint-disable @typescript-eslint/no-explicit-any */ 
       } catch (error:any) {
         setShowError(error.response.data.message);

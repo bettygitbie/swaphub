@@ -12,5 +12,4 @@ export async function PATCH(request:Request){
     } catch (error) {
         NextResponse.json({message: 'Error updating item', error},{status:500})
     }
-    
-}
+} 

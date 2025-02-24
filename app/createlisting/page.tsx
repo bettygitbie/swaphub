@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React,{ useState } from "react";
 import { CATEGORIES } from "../components/types/categories";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { Item } from "../components/types/item";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
