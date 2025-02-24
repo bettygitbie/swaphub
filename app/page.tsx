@@ -33,9 +33,9 @@ export default function Home() {
   async function ownerInfo() {
     if(selectedItem){
       console.log("selected owner ",selectedItem.owner)
-      const res = await axios.get("/api/items/itemowner", {params: {owner: selectedItem.owner}});
+      const res = await axios.get("/api/items/itemowner", { params: { owner: selectedItem.owner } });
       setOwner(res.data.email)
-      console.log(res);
+      console.log(res.data);
     }
   }
   

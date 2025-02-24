@@ -1,12 +1,11 @@
-import { NextResponse } from "next/server"; 
-import { NextApiRequest } from "next";
+import { NextResponse, NextRequest } from "next/server"; 
 import User from "@/models/UserModel";
 
-export async function GET(request:NextApiRequest){
+export async function GET(request:NextRequest){
     console.log("Request received at /api/items/itemowner");
-    const {owner} = request.query;
-    console.log(request.query)
-    console.log('owner is',owner)
+    const { searchParams } = new URL(request.url);
+    const owner = searchParams.get('owner');
+    console.log('owner is', owner);
     if (!owner) {
         return NextResponse.json({ message: 'Owner ID is required' },{status:400});
       }
