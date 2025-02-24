@@ -3,9 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
 
+interface Params {
+  params: {
+    filename: string;
+  };
+}
 const uploadsDir = path.join(process.cwd(), 'uploads');
 
-export async function GET(req: Request, { params }) {
+export async function GET(req: Request, { params }:Params) {
   const { filename } = await params; // Extract filename from URL params
   const filePath = path.join(uploadsDir, filename); // Construct the full file path
 
