@@ -25,11 +25,17 @@ export default function Home() {
 
   async function checkToken() {
     try {
-      const res = await axios.get("/api/users/user");
-      if (res.data.message === "User found") setIsLoggedIn(true);
-      else setIsLoggedIn(false);
+      const res = await axios.get("/api/users/user"); 
+      if (res.data.message === "User found") {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        router.push("/login"); 
+      }
     } catch (error) {
-      process.exit(1);
+      console.error("Error checking token:", error);
+      setIsLoggedIn(false);
+      router.push("/login"); 
     }
   }
 
