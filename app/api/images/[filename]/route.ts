@@ -10,8 +10,15 @@ import { NextResponse } from 'next/server';
 // }
 const uploadsDir = path.join(process.cwd(), 'uploads');
 
-export async function GET(req: Request, context: { params : {filename:string}}) {
-  const { filename } = context.params; // Extract filename from URL params
+export async function GET(req: Request) {
+  // const { filename } = params; // Extract filename from URL params
+  const url = new URL(req.url);
+  const filename = url.pathname.split('/').pop(); // Extract filename from URL params
+  
+  if (!filename) {
+    return NextResponse.json({ message: 'Filename is required' }, { status: 400 });
+  }
+
   const filePath = path.join(uploadsDir, filename); // Construct the full file path
 
   try {
