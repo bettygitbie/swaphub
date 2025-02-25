@@ -15,6 +15,9 @@ export async function GET(req: Request, context: { params : {filename:string}}) 
   const filePath = path.join(uploadsDir, filename); // Construct the full file path
 
   try {
+    if (!fs.existsSync(filePath)) {
+      throw new Error("File not found");
+    }
     const data = fs.readFileSync(filePath);
     const fileExtension = path.extname(filename).toLowerCase();
     let contentType = 'application/octet-stream'; // Default
