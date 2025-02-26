@@ -9,8 +9,10 @@ export async function GET(request: NextRequest) {
   try {
     const userId = await getTokenData(request);
     //fetch user data without the password
-    if (userId) {
-      const user = await User.findOne({ _id: typeof userId === 'string' ? userId : userId.id }).select("-password");
+    if (userId && (typeof userId === 'string' || (typeof userId === 'object' && 'id' in userId))) {
+      const ownerId = typeof userId === 'string' ? userId : userId.id;
+      const user = await User.findOne({ _id: ownerId }).select("-password");
+
       if (!user) {
         return NextResponse.json(
           { message: "User not found! Please sign in!" },

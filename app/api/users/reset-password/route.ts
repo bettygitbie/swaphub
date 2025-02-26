@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import jwt, {JwtPayload} from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import User from "@/models/UserModel";
 import PasswordReset from "@/models/PasswordResetModel";
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY) as JwtPayload;
     console.log("decoded token:", decodedToken);
     const { email } = decodedToken;
     const user = await User.findOne({ email });
