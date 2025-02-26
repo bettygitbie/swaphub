@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     const user = await User.findOne({ email });
     console.log("Found user", user);
 
-    await sendEmail({ email, emailType: "RESET", userId: user._id });
+    await sendEmail( email, "RESET", user._id );
     return NextResponse.json(
       { message: "Success email sent" },
       { status: 200 }
