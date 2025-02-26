@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Item from "@/models/ItemModel";
 import { connectToDatabase } from "@/dbConfig/dbConfig";
-import { getTokenData } from "@/helpers/getTokenData";
+//import { getTokenData } from "@/helpers/getTokenData";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 
@@ -13,6 +13,8 @@ export async function POST(request: NextRequest) {
   for (const [key, value] of formData.entries()) {
     console.log(`FD ${key}: ${value}`);
   }
+  const token = JSON.parse(formData.get('token') as string);
+  
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;
   const price = formData.get("price") as string;
@@ -20,9 +22,9 @@ export async function POST(request: NextRequest) {
   const category = (formData.get("category") as string).toLowerCase();
   const image: File | null = formData.get("image") as File;
 
-  const token = await getTokenData(request);
+  //const token = await getTokenData(request);
   //console.log(token);
-  if (!token || typeof token === "string") {
+  if (!token || typeof token === "object" || !('id' in token)) {
     return NextResponse.json("You must be logged in to create a listing");
   }
   if (!title || !description || !price) {
@@ -43,7 +45,7 @@ export async function POST(request: NextRequest) {
       price,
       location,
       category,
-      owner: token.id,
+      owner: token?.id,
       image: updatedImageName,
     });
 
