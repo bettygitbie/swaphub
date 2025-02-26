@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Navbar from "../components/layout/navbar";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
@@ -84,4 +84,11 @@ function Pwreset() {
   );
 }
 
-export default Pwreset;
+//export default Pwreset;
+export default function PasswordResetPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Pwreset />
+    </Suspense>
+  );
+}
