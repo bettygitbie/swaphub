@@ -5,16 +5,32 @@ import { connectToDatabase } from "@/dbConfig/dbConfig";
 
 connectToDatabase();
 
-export async function PATCH(request: NextRequest){
-    //const { searchParams } = new URL(request.url);
-    const userId = await getTokenData(request)
-    if(userId){
-        try {
-            await Item.findOneAndDelete({owner: typeof userId === 'string' ? userId : userId.id})
-            return NextResponse.json({message:"Item deleted"}, {status:200})
-        } catch (error) {
-            return NextResponse.json({error:error},{status: 500})
-        }
-        
+export async function PATCH(request: NextRequest) {
+    const userId = await getTokenData(request);
+  
+    if (userId && (typeof userId === 'string' || (typeof userId === 'object' && 'id' in userId))) {
+      try {
+        const ownerId = typeof userId === 'string' ? userId : userId.id;
+        await Item.findOneAndDelete({ owner: ownerId });
+        return NextResponse.json({ message: "Item deleted" }, { status: 200 });
+      } catch (error) {
+        return NextResponse.json({ error: error }, { status: 500 });
+      }
+    } else {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
-}
+  }
+
+// export async function PATCH(request: NextRequest){
+//     //const { searchParams } = new URL(request.url);
+//     const userId = await getTokenData(request)
+//     if(userId){
+//         try {
+//             await Item.findOneAndDelete({owner: typeof userId === 'string' ? userId : userId.id})
+//             return NextResponse.json({message:"Item deleted"}, {status:200})
+//         } catch (error) {
+//             return NextResponse.json({error:error},{status: 500})
+//         }
+        
+//     }
+// }
