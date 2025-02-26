@@ -15,20 +15,7 @@ export async function GET() {
         );
       }
       return NextResponse.json({ message: "Users found", users });
-    //const userId = await getTokenData(request);
-    //fetch user data without the password
-    // if (userId) {
-    //   const users = await User.find().select("-password");
-    //   if (!users) {
-    //     return NextResponse.json(
-    //       { message: "There are no users!" },
-    //       { status: 404 }
-    //     );
-    //   }
-    //   return NextResponse.json({ message: "Users found", users });
-    // } else {
-    //     return NextResponse.json({ message: "Users not found! Please sign in!" }, { status: 404 });
-    // }
+  
   } catch (error) {
     return NextResponse.json({ message: "Error fetching users",error }, { status: 500 });
   }
