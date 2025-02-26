@@ -5,8 +5,7 @@ import PasswordReset from "@/models/PasswordResetModel";
 
 connectToDatabase();
 
-export const sendEmail = async ({ email, emailType, userId }: any) => {
-  console.log(userId)
+export const sendEmail = async ( email:string, emailType: "RESET" | "VERIFY", userId: string ) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new Error("SECRET_KEY is not defined");
@@ -50,6 +49,10 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     const transportRes = await transport.sendMail(mailOptions);
     return transportRes;
   } catch (error) {
-    throw new Error(error);
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 };
