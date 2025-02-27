@@ -5,26 +5,25 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AddIcon from "@mui/icons-material/Add";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import { ToastContainer,toast } from "react-toastify";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import { ToastContainer, toast } from "react-toastify";
 import "./navbar.css";
 
 export default function Navbar() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   useEffect(() => {
-    
     async function fetchToken() {
       try {
         const response = await fetch("/api/verifytoken");
-        if(!response.ok){
-          setIsAuthenticated(false)
+        if (!response.ok) {
+          setIsAuthenticated(false);
         }
-        const data = await response.json()
-        console.log(data)
+        const data = await response.json();
         if (data.tokenData) setIsAuthenticated(true);
       } catch (error) {
-        toast.error("Failed to fetch user data"+ error)
+        toast.error("Failed to fetch user data" + error);
       }
     }
     fetchToken();
@@ -36,7 +35,7 @@ export default function Navbar() {
       setIsAuthenticated(false);
       router.push("/");
     } catch (error) {
-      toast.error("Failed to logout"+ error);
+      toast.error("Failed to logout" + error);
     }
   };
 
@@ -46,10 +45,16 @@ export default function Navbar() {
         <Link href="/" className="text-3xl text-custom-green font-bold ml-16">
           SwapHub
         </Link>
-        <div className="flex items-center gap-4">
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          &#9776;
+        </button>
+        <div className={`flex items-center gap-4 ${isMobileMenuOpen ? 'mobile-menu' : ''}`}>
           {isAuthenticated ? (
             <>
-            <Link href="/dashboard" className="outlined-button-signup">
+              <Link href="/dashboard" className="outlined-button-signup">
                 <DashboardIcon /> Dashboard
               </Link>
               <Link href="/createlisting" className="outlined-button-signup">
