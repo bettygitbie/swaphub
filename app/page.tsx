@@ -12,7 +12,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState<Item[]>([]);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [owner, setOwner] = useState("");
 
   useEffect(() => {
@@ -25,28 +25,29 @@ export default function Home() {
 
   async function checkToken() {
     try {
-      const res = await axios.get("/api/users/user"); 
-      if (res.data.message === "User found") {
+      const res = await axios.get("/api/verifytoken");
+      if (res.data.message === "token found") {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
-        router.push("/login"); 
+        router.push("/login");
       }
     } catch (error) {
       console.error("Error checking token:", error);
       setIsLoggedIn(false);
-      router.push("/login"); 
+      router.push("/login");
     }
   }
+  useEffect(() => {
+    checkToken();
+  }, [router]);
 
   async function ownerInfo() {
     if (selectedItem) {
-      console.log("selected owner ", selectedItem.owner);
       const res = await axios.get("/api/items/itemowner", {
         params: { owner: selectedItem.owner },
       });
       setOwner(res.data.email);
-      console.log(res.data);
     }
   }
 
@@ -55,8 +56,7 @@ export default function Home() {
     router.push(`/search?q=${searchQuery}`);
   };
 
-  const openModal = (item: Item) => {
-    checkToken();
+  const openModal = async (item: Item) => {
     if (isLoggedIn) {
       setSelectedItem(item);
       ownerInfo();

@@ -21,6 +21,7 @@ export default function Navbar() {
           setIsAuthenticated(false)
         }
         const data = await response.json()
+        console.log(data)
         if (data.tokenData) setIsAuthenticated(true);
       } catch (error) {
         toast.error("Failed to fetch user data"+ error)
