@@ -1,5 +1,5 @@
 "use client";
-import React,{ useState, useEffect } from "react";
+import React,{ useState, useEffect, Suspense } from "react";
 import { Item } from "../components/types/item";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { CATEGORIES } from "../components/types/categories";
 import axios from "axios";
 import Navbar from "../components/layout/navbar";
 
-export default function SearchPage() {
+function SearchPageContent() {
   const searchParam = useSearchParams();
   const [searchResult, setSearchResult] = useState<Item[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -111,5 +111,12 @@ export default function SearchPage() {
         </div>
       </div>
     </>
+  );
+}
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
   );
 }
