@@ -63,7 +63,8 @@ export default function CreateListing() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
-        if (response) router.push("/dashboard");
+        console.log('returned response', response)
+        if (response.status===200) router.push("/dashboard");
       })
       .catch((error) => toast.error("Failed to create listing" + error));
   };
