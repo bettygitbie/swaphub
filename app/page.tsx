@@ -40,7 +40,7 @@ export default function Home() {
   }
   useEffect(() => {
     checkToken();
-  }, [router]);
+  }, []);
 
   async function ownerInfo() {
     if (selectedItem) {
