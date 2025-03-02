@@ -40,10 +40,11 @@ export default function Home() {
     checkToken();
   }, []);
 
-  async function ownerInfo() {
-    if (selectedItem) {
+  async function ownerInfo(item: Item) {
+    //console.log('selectedItem inside ownerinfo:', selectedItem);
+    if (item.owner) {
       const res = await axios.get("/api/items/itemowner", {
-        params: { owner: selectedItem.owner },
+        params: { owner: item.owner },
       });
       setOwner(res.data.email);
     }
@@ -56,8 +57,8 @@ export default function Home() {
 
   const openModal = async (item: Item) => {
     if (isLoggedIn) {
+      await ownerInfo(item);
       setSelectedItem(item);
-      ownerInfo();
       document.body.style.overflow = "hidden";
     } else {
       router.push("/login");
