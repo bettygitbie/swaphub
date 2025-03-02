@@ -6,6 +6,7 @@ export async function GET() {
 
     response.cookies.set("token", "", {
       maxAge: 0,
+      path: "/",
     });
     return response;
   } catch (error) {
@@ -13,3 +14,4 @@ export async function GET() {
     return NextResponse.json({ message: "Unknown error", error }, { status: 500 });
   }
 }
+ 

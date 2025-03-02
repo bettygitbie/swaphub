@@ -33,7 +33,8 @@ export default function Navbar() {
     try {
       await axios.get("/api/users/logout");
       setIsAuthenticated(false);
-      router.push("/");
+      router.replace("/");
+      window.location.reload();
     } catch (error) {
       toast.error("Failed to logout" + error);
     }
@@ -51,7 +52,11 @@ export default function Navbar() {
         >
           &#9776;
         </button>
-        <div className={`nav-links flex items-center gap-4 ${isMobileMenuOpen ? 'mobile-menu' : ''}`}>
+        <div
+          className={`nav-links flex items-center gap-4 ${
+            isMobileMenuOpen ? "mobile-menu" : ""
+          }`}
+        >
           {isAuthenticated ? (
             <>
               <Link href="/dashboard" className="outlined-button-signup">
