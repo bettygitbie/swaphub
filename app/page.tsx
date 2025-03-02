@@ -30,12 +30,10 @@ export default function Home() {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
-        router.push("/login");
       }
     } catch (error) {
       console.error("Error checking token:", error);
       setIsLoggedIn(false);
-      router.push("/login");
     }
   }
   useEffect(() => {
