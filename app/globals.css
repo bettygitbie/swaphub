@@ -20,6 +20,8 @@
 
 body {
   @apply bg-background text-foreground;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .modal-overlay {
