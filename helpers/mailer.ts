@@ -28,7 +28,9 @@ export const sendEmail = async (
     console.log(savedRequest);
 
     const transport = nodemailer.createTransport({
-      host: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
       //port: 2525,
       auth: {
         user: process.env.EMAIL_USER,
@@ -36,8 +38,8 @@ export const sendEmail = async (
       },
     });
     transport.sendMail({
-      from: "your-email@yourdomain.com",
-      to: "recipient@example.com",
+      from: "admin@swaphub.com",
+      to: email,
       subject: "Test Email",
       text: "Hello, this is a test email from production!",
     });
