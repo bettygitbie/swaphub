@@ -5,7 +5,11 @@ import PasswordReset from "@/models/PasswordResetModel";
 
 connectToDatabase();
 
-export const sendEmail = async ( email:string, emailType: "RESET" | "VERIFY", userId: string ) => {
+export const sendEmail = async (
+  email: string,
+  emailType: "RESET" | "VERIFY",
+  userId: string
+) => {
   try {
     if (!process.env.SECRET_KEY) {
       throw new Error("SECRET_KEY is not defined");
@@ -19,17 +23,23 @@ export const sendEmail = async ( email:string, emailType: "RESET" | "VERIFY", us
       forgotPasswordToken: token,
       forgotPasswordTokenExpiry: Date.now() + 3600000,
     });
-    console.log(newPasswordRequest)
+    console.log(newPasswordRequest);
     const savedRequest = await newPasswordRequest.save();
     console.log(savedRequest);
 
     const transport = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
+      host: "gmail",
+      //port: 2525,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASSWORD,
       },
+    });
+    transport.sendMail({
+      from: "your-email@yourdomain.com",
+      to: "recipient@example.com",
+      subject: "Test Email",
+      text: "Hello, this is a test email from production!",
     });
 
     const mailOptions = {
