@@ -1,5 +1,5 @@
 "use client";
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
@@ -26,6 +26,10 @@ export default function Signup() {
     if (!emailRegex.test(user.email)) {
       setShowError("Please enter a valid email address.");
     } else {
+      if(user.password.length < 8){
+        setShowError("Password must be at least 8 characters long.");
+        return;
+      }
       try {
         setLoading(true);
         const response = await axios.post("/api/users/signup", user);
@@ -87,6 +91,7 @@ export default function Signup() {
             id="password"
             placeholder="Password"
             value={user.password}
+            minLength={8}
             onChange={(e) => setUser({ ...user, password: e.target.value })}
             required
           />

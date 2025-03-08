@@ -116,6 +116,65 @@ This will start the development server. You can acccess the project at http://lo
 Make sure you have MongoDB set up and running. If you're using MongoDB Atlas, you can connect using the provided MongoDB URI. If you're using a local MongoDB instance, ensure it's running on the correct port.
 
 ---
+## Database Schema
+### User Schema
+
+The 'User' schema represents the users of the application. 
+| Field        | Type        | Description                          |
+|--------------|-------------|--------------------------------------|
+| `email`      | `String`    | The user's email address (unique)    |
+| `password`   | `String`    | The user's hashed password           |
+| `username`   | `String`    | The user's preferred name (e.g., 'buyer', 'seller', 'admin') |
+| `isAdmin`    | `Boolean`   | The user's profile if admin or not   |
+| `isVerified` | `Boolean`   | The user's email verified or not     |
+| `createdAt`  | `Date`      | The date and time when the account was created |
+| `updatedAt`  | `Date`      | The date and time when the account was last updated |
+
+```
+const userSchema = new mongoose.Schema({
+    username: {type: String,required: [true, "Please provide a username"],unique: true,},
+    email: {type: String,required: [true, "Please provide an email"],unique: true,lowercase: true,},
+    password: {type: String,required: [true, "Please provide a password"],},
+    isAdmin: {type: Boolean,default: false},
+    isVerified: {type: Boolean,default: false,},},
+  { timestamps: true });
+```
+
+### Item Schema
+The 'Item' schema represents the items listed for sale. 
+
+| Field        | Type        | Description                          |
+|--------------|-------------|--------------------------------------|
+| `title`      | `String`    | The title of the item (unique)       |
+| `description`| `String`    | The description of item              |
+| `price`      | `Number`    | The price of item                    |
+| `status`     | `String`    | The status of item(e.g. 'sold','available')   |
+| `owner`      | `ObjectId`  | A reference to the `User` who listed |
+| `image`      | `String`    | The image location of item             |
+| `Location`   | `String`    | The location of item             |
+| `Category`   | `String`    | The category of item (e.g 'Electronics','vehicle'...) |
+| `createdAt`  | `Date`      | The date and time when the account was created |
+| `updatedAt`  | `Date`      | The date and time when the account was last updated |
+
+```
+const itemSchema = new mongoose.Schema({
+    title: {type: String,required: [true, 'Please provide a title'],},
+    description: {type: String,required: [true, 'Please provide a description'],},
+    image: {type: String,},
+    price: {type: Number,required: [true, 'Please provide a price'],},
+    location: {type: String,},
+    category: {type: String,required: [true, 'Please provide a category'],},
+    owner: {type: mongoose.Schema.Types.ObjectId,ref: 'User',},
+    status: {type: String,default: 'available',},
+    created: {type: Date,default: Date.now,},
+},{timestamps: true});
+```
+
+### Relationships:
+
+**User-Item Relationship:** A user can have many items, but each item is linked to only one user(the owner). This is achieved through an ObjectId reference from the Item schema to the User schema.
+
+---
 ## Troubleshooting
 If you encounter issues during setup or running the project, here are some common solutions:
 1. **Missing ```.env.local``` variables**: Ensure that ll required environment variables are set.
@@ -125,8 +184,3 @@ If you encounter issues during setup or running the project, here are some commo
 ---
 
 This proposal outlines the foundational structure of the SwapHub project, which aims to create an efficient and eco-conscious platform for the local buying and selling of second-hand goods. The implementation of features like easy item management, a robust search system, and user verification will make SwapHub a trusted and reliable marketplace for community interactions.
-
----
-Feel free to reach out if you have questions or issues while setting up the project. Contributions are welcome! :)
-
----

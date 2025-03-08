@@ -73,6 +73,10 @@ export default function CreateListing() {
           image: null,
           category: "",
         });
+        const imageInput = document.getElementById("image")as HTMLInputElement;
+        if (imageInput) {
+          imageInput.value = "";
+        } 
         toast.success("Listing created successfully");
       })
       .catch((error) => toast.error("Failed to create listing" + error));
@@ -129,6 +133,8 @@ export default function CreateListing() {
                 type="number"
                 name="price"
                 id="price"
+                min={0}
+                step={0.01}
                 placeholder="0.0"
                 value={formData.price}
                 onChange={handleInputChange}
