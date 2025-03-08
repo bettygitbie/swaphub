@@ -21,16 +21,3 @@ export async function PATCH(request: NextRequest) {
     }
   }
 
-// export async function PATCH(request: NextRequest){
-//     //const { searchParams } = new URL(request.url);
-//     const userId = await getTokenData(request)
-//     if(userId){
-//         try {
-//             await Item.findOneAndDelete({owner: typeof userId === 'string' ? userId : userId.id})
-//             return NextResponse.json({message:"Item deleted"}, {status:200})
-//         } catch (error) {
-//             return NextResponse.json({error:error},{status: 500})
-//         }
-        
-//     }
-// }

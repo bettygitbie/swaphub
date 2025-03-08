@@ -38,12 +38,6 @@ export const sendEmail = async (
         pass: process.env.EMAIL_PASSWORD,
       },
     });
-    transport.sendMail({
-      from: "admin@swaphub.com",
-      to: email,
-      subject: "Test Email",
-      text: "Hello, this is a test email from production!",
-    });
 
     const mailOptions = {
       from: "admin@swaphub.com",

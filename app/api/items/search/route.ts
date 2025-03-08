@@ -17,21 +17,24 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { message: "Search results", filteredItems },
         { status: 200 }
-      )}
-    else if(q){
+      );
+    } else if (q) {
       const filteredItems = await Item.find({
         $or: [
-          {title: { $regex:q, $options: 'i'}},
-          { description: {$regex:q, $options:'i'}}
-        ]
-      })
+          { title: { $regex: q, $options: "i" } },
+          { description: { $regex: q, $options: "i" } },
+        ],
+      });
       return NextResponse.json(
         { message: "Search results", filteredItems },
         { status: 200 }
-      )
+      );
     }
-    }
-   catch (error) {
-    return NextResponse.json({ error: "unable to fetch", details: error }, { status: 401 });
+  } catch (error) {
+    console.error("Error searching for items", error);
+    return NextResponse.json(
+      { error: "An unexpected error occurred. Please try again later." },
+      { status: 500 }
+    );
   }
 }

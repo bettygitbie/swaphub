@@ -1,5 +1,5 @@
 "use client";
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { CATEGORIES } from "../components/types/categories";
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
@@ -63,8 +63,17 @@ export default function CreateListing() {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
-        console.log('returned response', response)
-        if (response.status===200) router.push("/dashboard");
+        console.log("returned response", response);
+        if (response.status === 200) router.push("/dashboard");
+        setFormData({
+          title: "",
+          description: "",
+          price: 0,
+          location: "",
+          image: null,
+          category: "",
+        });
+        toast.success("Listing created successfully");
       })
       .catch((error) => toast.error("Failed to create listing" + error));
   };
